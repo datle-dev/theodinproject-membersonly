@@ -1,5 +1,7 @@
 const express = require('express');
+const session = require('express-session');
 const mongoose = require("mongoose");
+const MongoStore = require('connect-mongo');
 const path = require('path');
 
 const indexRouter = require('./routes/index');
@@ -25,6 +27,21 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+const sessionStore = MongoStore.create({
+  client: mongoose.connection.getClient(),
+  collectionName: 'sessions',
+});
+
+app.use(session({
+  secret: 'some secret',
+  resave: false,
+  saveUninitialized: true,
+  store: sessionStore,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // 1 day -> 24 hr/day -> 60 min/hr -> 60 s/min -> 1000 ms/s
+  }
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
