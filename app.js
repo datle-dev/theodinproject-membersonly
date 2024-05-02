@@ -1,13 +1,23 @@
 const express = require('express');
+const mongoose = require("mongoose");
 const path = require('path');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+// connect to database
+mongoose.set("strictQuery", false);
+const mongoDB = process.env.MONGO_URI;
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+  console.log(`mongoose connection readyState = ${mongoose.connection.readyState}`);
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
