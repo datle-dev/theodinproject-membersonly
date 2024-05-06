@@ -13,7 +13,7 @@ require('dotenv').config();
 
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
-  const allPosts = await Post.find().sort({ added: 1 }).exec();
+  const allPosts = await Post.find().sort({ added: -1 }).exec();
   res.render('pages/index', { title: 'Express', posts: allPosts });
 }));
 
