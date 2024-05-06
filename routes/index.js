@@ -33,29 +33,63 @@ router.post(
   }),
 );
 
-router.post('/register', asyncHandler(async (req, res, next) => {
-  const saltHash = await genPassword(req.body.pw);
+router.post('/register', [
+  body('uname')
+    .exists()
+    .withMessage('You must input a username.')
+    .trim()
+    .isEmail()
+    .normalizeEmail()
+    .escape()
+    .withMessage('Username must be a valid email.'),
+  body('pw')
+    .exists()
+    .withMessage('You must type a password.')
+    .isLength({ min: 2 })
+    .withMessage('Password must be at least 2 characters.'),
+  body('pwconfirm')
+    .exists()
+    .withMessage('You must confirm the password.')
+    .custom((value, {req}) => {
+      if (value !== req.body.pw) {
+        throw new Error('Confirmation password must match the password.')
+      }
+      return true;
+    }),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
 
-  const salt = saltHash.salt;
-  const hash = saltHash.hash;
+    const saltHash = await genPassword(req.body.pw);
 
-  const newUser = new User({
-    username: req.body.uname,
-    hash: hash,
-    salt: salt,
-    admin: req.body.pwadmin === process.env.ADMIN_PASSWORD,
-    member: false,
-  });
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
 
-  console.log(`newUser: ${newUser}`);
-
-  await newUser.save()
-    .then((user) => {
-      console.log(user);
+    const newUser = new User({
+      username: req.body.uname,
+      hash: hash,
+      salt: salt,
+      admin: req.body.pwadmin === process.env.ADMIN_PASSWORD,
+      member: false,
     });
 
-  res.redirect('/login');
-}));
+    console.log(`newUser: ${newUser}`);
+
+    if (!errors.isEmpty()) {
+      res.render('pages/register', {
+        title: 'Register',
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await newUser.save()
+        .then((user) => {
+          console.log(user);
+        });
+
+      res.redirect('/login');
+    }
+  }),
+]);
 
 router.get('/login-success', asyncHandler(async (req, res, next) => {
   res.render('pages/login-success', { title: 'LOGIN: SUCCESS' });
