@@ -2,17 +2,27 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <h1><%= title %></h1>
     <form action="" method="post">
-      <label for="uname">Username</label>
-      <input type="text" name="uname" id="uname">
-      <label for="pw">Password</label>
-      <input type="text" name="pw" id="pw">
-      <label for="admin">Register as admin</label>
-      <input type="checkbox" name="admin" id="admin">
+      <section>
+        <label for="uname">Username</label>
+        <input type="text" name="uname" id="uname" />
+      </section>
+      <section>
+        <label for="pw">Password</label>
+        <input type="password" name="pw" id="pw" />
+      </section>
+      <section>
+        <label for="pwconfirm">Confirm Password</label>
+        <input type="password" name="pwconfirm" id="pwconfirm" />
+      </section>
+      <section>
+        <label for="pwadmin">Admin Password</label>
+        <input type="password" name="pwadmin" id="pwadmin" />
+      </section>
       <button type="submit">Register</button>
     </form>
   </body>
