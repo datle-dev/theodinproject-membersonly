@@ -9,6 +9,8 @@ const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
 const asyncHandler = require('express-async-handler');
 
+require('dotenv').config();
+
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
   console.log(req.session);
@@ -41,7 +43,7 @@ router.post('/register', asyncHandler(async (req, res, next) => {
     username: req.body.uname,
     hash: hash,
     salt: salt,
-    admin: false,
+    admin: req.body.pwadmin === process.env.ADMIN_PASSWORD,
     member: false,
   });
 
