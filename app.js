@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const path = require('path');
+const createError = require('http-errors');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
