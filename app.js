@@ -45,6 +45,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
