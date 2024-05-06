@@ -8,8 +8,8 @@ const customFields = {
   passwordField: 'pw',
 };
 
-const verifyCallback = (username, password, done) => {
-  User.findOne({ username: username })
+const verifyCallback = async (username, password, done) => {
+  await User.findOne({ username: username })
     .then((user) => {
       if (!user) { return done(null, false) }
 

@@ -6,20 +6,21 @@ const connection = require('../config/database');
 const User = require('../models/user');
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
+const asyncHandler = require('express-async-handler');
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', asyncHandler(async (req, res, next) => {
   console.log(req.session);
   res.render('index', { title: 'Express' });
-});
+}));
 
-router.get('/login', (req, res, next) => {
+router.get('/login', asyncHandler(async (req, res, next) => {
   res.render('login', { title: 'Sign In' });
-});
+}));
 
-router.get('/register', (req, res, next) => {
+router.get('/register', asyncHandler(async (req, res, next) => {
   res.render('register', { title: 'Register' });
-});
+}));
 
 router.post(
   '/login', 
@@ -29,8 +30,8 @@ router.post(
   }),
 );
 
-router.post('/register', (req, res, next) => {
-  const saltHash = genPassword(req.body.pw);
+router.post('/register', asyncHandler(async (req, res, next) => {
+  const saltHash = await genPassword(req.body.pw);
 
   const salt = saltHash.salt;
   const hash = saltHash.hash;
@@ -42,35 +43,37 @@ router.post('/register', (req, res, next) => {
     admin: true,
   });
 
-  newUser.save()
+  console.log(`newUser: ${newUser}`);
+
+  await newUser.save()
     .then((user) => {
       console.log(user);
     });
 
   res.redirect('/login');
-});
+}));
 
-router.get('/login-success', (req, res, next) => {
+router.get('/login-success', asyncHandler(async (req, res, next) => {
   res.render('login-success', { title: 'LOGIN: SUCCESS' });
-});
+}));
 
-router.get('/login-failure', (req, res, next) => {
+router.get('/login-failure', asyncHandler(async (req, res, next) => {
   res.render('login-failure', { title: 'LOGIN: FAILED' });
-});
+}));
 
-router.get('/logout', (req, res, next) => {
+router.get('/logout', asyncHandler(async (req, res, next) => {
   req.logout((err) => {
     if (err) { return next(err); }
     res.redirect('/');
   });
-});
+}));
 
-router.get('/protected-route', isAuth, (req, res, next) => {
+router.get('/protected-route', isAuth, asyncHandler(async (req, res, next) => {
   res.render('protected-route', { title: 'Protected Route' });
-});
+}));
 
-router.get('/admin-route', isAdmin, (req, res, next) => {
+router.get('/admin-route', isAdmin, asyncHandler(async (req, res, next) => {
   res.render('admin-route', { title: 'Admin Route' });
-});
+}));
 
 module.exports = router;
