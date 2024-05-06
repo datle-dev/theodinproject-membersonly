@@ -41,7 +41,8 @@ router.post('/register', asyncHandler(async (req, res, next) => {
     username: req.body.uname,
     hash: hash,
     salt: salt,
-    admin: true,
+    admin: false,
+    member: false,
   });
 
   console.log(`newUser: ${newUser}`);

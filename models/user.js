@@ -6,6 +6,7 @@ const UserSchema = new Schema({
   hash: { type: String, required: true },
   salt: { type: String, required: true },
   admin: { type: Boolean, required: true },
+  member: { type: Boolean, required: true },
 });
 
 module.exports = mongoose.model('User', UserSchema);
