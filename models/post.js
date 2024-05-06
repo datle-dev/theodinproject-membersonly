@@ -9,7 +9,7 @@ const PostSchema = new Schema({
 });
 
 PostSchema.virtual('dateFormatted').get(function () {
-  return DateTime.fromJSDate(this.added).toLocaleString(DateTime.DATE_MED);
+  return DateTime.fromJSDate(this.added).toLocaleString(DateTime.DATETIME_SHORT);
 });
 
 module.exports = mongoose.model('Post', PostSchema);
