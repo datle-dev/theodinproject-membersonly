@@ -8,6 +8,7 @@ const Post = require('../models/post');
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
 
 require('dotenv').config();
 
