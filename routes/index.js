@@ -136,4 +136,8 @@ router.post('/create-post', asyncHandler(async (req, res, next) => {
 
 }));
 
+router.get('/membership', asyncHandler((req, res, next) => {
+  res.render('pages/membership', { title: 'Membership'});
+}));
+
 module.exports = router;
