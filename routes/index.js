@@ -12,15 +12,15 @@ const asyncHandler = require('express-async-handler');
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
   console.log(req.session);
-  res.render('index', { title: 'Express' });
+  res.render('pages/index', { title: 'Express' });
 }));
 
 router.get('/login', asyncHandler(async (req, res, next) => {
-  res.render('login', { title: 'Sign In' });
+  res.render('pages/login', { title: 'Sign In' });
 }));
 
 router.get('/register', asyncHandler(async (req, res, next) => {
-  res.render('register', { title: 'Register' });
+  res.render('pages/register', { title: 'Register' });
 }));
 
 router.post(
@@ -56,11 +56,11 @@ router.post('/register', asyncHandler(async (req, res, next) => {
 }));
 
 router.get('/login-success', asyncHandler(async (req, res, next) => {
-  res.render('login-success', { title: 'LOGIN: SUCCESS' });
+  res.render('pages/login-success', { title: 'LOGIN: SUCCESS' });
 }));
 
 router.get('/login-failure', asyncHandler(async (req, res, next) => {
-  res.render('login-failure', { title: 'LOGIN: FAILED' });
+  res.render('pages/login-failure', { title: 'LOGIN: FAILED' });
 }));
 
 router.get('/logout', asyncHandler(async (req, res, next) => {
@@ -71,15 +71,15 @@ router.get('/logout', asyncHandler(async (req, res, next) => {
 }));
 
 router.get('/protected-route', isAuth, asyncHandler(async (req, res, next) => {
-  res.render('protected-route', { title: 'Protected Route' });
+  res.render('pages/protected-route', { title: 'Protected Route' });
 }));
 
 router.get('/admin-route', isAdmin, asyncHandler(async (req, res, next) => {
-  res.render('admin-route', { title: 'Admin Route' });
+  res.render('pages/admin-route', { title: 'Admin Route' });
 }));
 
 router.get('/create-post', isAuth, asyncHandler(async (req, res, next) => {
-  res.render('create-post', { title: 'Create Post', user: res.locals.currentUser.username });
+  res.render('pages/create-post', { title: 'Create Post', user: res.locals.currentUser.username });
 }));
 
 router.post('/create-post', asyncHandler(async (req, res, next) => {
