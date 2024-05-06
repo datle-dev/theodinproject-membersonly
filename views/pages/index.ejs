@@ -10,6 +10,12 @@
     </header>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <p>Posts will go here</p>
+    <% for (let post of posts) { %>
+      <article>
+        <p><%= post.added %></p>
+        <p><%= post.username %></p>
+        <p><%= post.text %></p>
+      </article>
+    <% } %>
   </body>
 </html>

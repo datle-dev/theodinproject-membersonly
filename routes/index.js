@@ -13,8 +13,8 @@ require('dotenv').config();
 
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
-  console.log(req.session);
-  res.render('pages/index', { title: 'Express' });
+  const allPosts = await Post.find().sort({ added: 1 }).exec();
+  res.render('pages/index', { title: 'Express', posts: allPosts });
 }));
 
 router.get('/login', asyncHandler(async (req, res, next) => {
