@@ -25,5 +25,12 @@
       </section>
       <button type="submit">Register</button>
     </form>
+    <% if (typeof errors !== "undefined") { %>
+      <ul>
+        <% for (let error of errors) { %>
+          <li><%= error.msg %></li>
+        <% } %>
+      </ul>
+    <% } %>
   </body>
 </html>
