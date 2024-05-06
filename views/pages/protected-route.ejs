@@ -5,6 +5,9 @@
     <title><%= title %></title>
   </head>
   <body>
+    <header>
+      <%- include('../partials/navigation') %>
+    </header>
     <h1><%= title %></h1>
     <p>This is a protected route</p>
     <a href="/admin-route">Go to admin route</a>
