@@ -4,6 +4,7 @@ const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../config/database');
 const User = require('../models/user');
+const Post = require('../models/post');
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
 const asyncHandler = require('express-async-handler');
@@ -74,6 +75,28 @@ router.get('/protected-route', isAuth, asyncHandler(async (req, res, next) => {
 
 router.get('/admin-route', isAdmin, asyncHandler(async (req, res, next) => {
   res.render('admin-route', { title: 'Admin Route' });
+}));
+
+router.get('/create-post', isAuth, asyncHandler(async (req, res, next) => {
+  res.render('create-post', { title: 'Create Post', user: res.locals.currentUser.username });
+}));
+
+router.post('/create-post', asyncHandler(async (req, res, next) => {
+  const newPost = new Post({
+    username: res.locals.currentUser.username,
+    text: req.body.posttext,
+    added: new Date(),
+  });
+
+  console.log(`newPost: ${newPost}`);
+
+  await newPost.save()
+    .then((postText) => {
+      console.log(postText);
+    });
+
+  res.redirect('/protected-route');
+
 }));
 
 module.exports = router;
