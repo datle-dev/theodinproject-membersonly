@@ -4,6 +4,8 @@ const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../config/database');
 const User = require('../models/user');
+const isAuth = require('./authMiddleware').isAuth;
+const isAdmin = require('./authMiddleware').isAdmin;
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -37,6 +39,7 @@ router.post('/register', (req, res, next) => {
     username: req.body.uname,
     hash: hash,
     salt: salt,
+    admin: true,
   });
 
   newUser.save()
