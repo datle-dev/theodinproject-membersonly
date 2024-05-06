@@ -11,15 +11,7 @@ require('dotenv').config();
 
 const app = express();
 
-// connect to database
-mongoose.set("strictQuery", false);
-const mongoDB = process.env.MONGO_URI;
 
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDB);
-  console.log(`mongoose connection readyState = ${mongoose.connection.readyState}`);
-}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
