@@ -2,12 +2,15 @@ const express = require('express');
 const session = require('express-session');
 const mongoose = require("mongoose");
 const MongoStore = require('connect-mongo');
+const passport = require('passport');
 const path = require('path');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 require('dotenv').config();
+
+require('./config/passport');
 
 const app = express();
 
