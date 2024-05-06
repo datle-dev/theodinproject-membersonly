@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const genPassword = require('../lib/passwordUtils').genPassword;
+const genPassword = require('../util/passwordUtils').genPassword;
 const connection = require('../config/database');
 const User = require('../models/user');
 const Post = require('../models/post');
-const isAuth = require('./authMiddleware').isAuth;
-const isAdmin = require('./authMiddleware').isAdmin;
+const { isAuth, isAdmin } = require('../util/authUtils')
 const asyncHandler = require('express-async-handler');
 const { body, validationResult } = require('express-validator');
 
