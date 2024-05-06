@@ -58,4 +58,19 @@ router.get('/login-failure', (req, res, next) => {
   res.render('login-failure', { title: 'LOGIN: FAILED' });
 });
 
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
+
+router.get('/protected-route', isAuth, (req, res, next) => {
+  res.render('protected-route', { title: 'Protected Route' });
+});
+
+router.get('/admin-route', isAdmin, (req, res, next) => {
+  res.render('admin-route', { title: 'Admin Route' });
+});
+
 module.exports = router;
