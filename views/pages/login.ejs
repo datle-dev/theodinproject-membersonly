@@ -4,21 +4,34 @@
     <%- include('../partials/head') %>
     <title><%= title %></title>
   </head>
-  <body>
+  <body class="container mt-2 mb-2">
     <header>
       <%- include('../partials/navigation') %>
     </header>
-    <h1><%= title %></h1>
-    <form action="" method="post">
-      <section>
-        <label for="uname">Username</label>
-        <input type="text" name="uname" id="uname">
-      </section>
-      <section>
-        <label for="pw">Password</label>
-        <input type="password" name="pw" id="pw">
-      </section>
-      <button type="submit" class="btn btn-primary">Sign In</button>
-    </form>
+    <main>
+      <h1><%= title %></h1>
+      <form action="" method="post">
+        <section class="mb-3">
+          <label for="uname" class="form-label">Username</label>
+          <input
+            type="text"
+            name="uname"
+            id="uname"
+            class="form-control"
+            placeholder="name@example.com"
+          >
+        </section>
+        <section class="mb-3">
+          <label for="pw" class="form-label">Password</label>
+          <input
+            type="password"
+            name="pw"
+            id="pw"
+            class="form-control"
+          >
+        </section>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+    </main>
   </body>
 </html>

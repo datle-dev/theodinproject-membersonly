@@ -4,19 +4,24 @@
     <%- include('../partials/head') %>
     <title><%= title %></title>
   </head>
-  <body>
+  <body class="container mt-2 mb-2">
     <header>
       <%- include('../partials/navigation') %>
     </header>
-    <h1><%= title %></h1>
-    <p>User: <%= user %></p>
-    <form action="" method="post">
-      <label for="posttext">Write Post</label>
-      <textarea
-        name="posttext"
-        id="posttext"
-        placeholder="Write your post here..."></textarea>
-      <button type="submit">Submit</button>
-    </form>
+    <main>
+      <h1><%= title %></h1>
+      <p>User: <%= user %></p>
+      <form action="" method="post">
+        <section class="mb-3">
+          <label for="posttext" class="form-label">Write Post</label>
+          <textarea
+            name="posttext"
+            id="posttext"
+            placeholder="Write your post here..."
+            class="form-control"></textarea>
+        </section>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </main>
   </body>
 </html>

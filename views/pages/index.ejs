@@ -4,18 +4,26 @@
     <%- include('../partials/head') %>
     <title><%= title %></title>
   </head>
-  <body>
+  <body class="container mt-2 mb-2">
     <header>
       <%- include('../partials/navigation') %>
     </header>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <% for (let post of posts) { %>
-      <article>
-        <p><%= post.added %></p>
-        <p><%= post.username %></p>
-        <p><%= post.text %></p>
-      </article>
-    <% } %>
+    <main>
+      <h1><%= title %></h1>
+      <p>Welcome to <%= title %></p>
+      <div class="d-flex flex-column gap-2">
+        <% for (let post of posts) { %>
+          <article class="border p-2 rounded">
+            <section class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
+              <p class="text-primary fw-bold mb-1"><%= post.username %></p>
+              <p class="text-secondary mb-1"><%= post.dateFormatted %></p>
+            </section>
+            <section>
+              <p class="text-body mb-1"><%= post.text %></p>
+            </section>
+          </article>
+        <% } %>
+      </div>
+    </main>
   </body>
 </html>

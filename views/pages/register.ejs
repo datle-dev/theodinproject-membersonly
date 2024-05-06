@@ -4,36 +4,59 @@
     <%- include('../partials/head') %>
     <title><%= title %></title>
   </head>
-  <body>
+  <body class="container mt-2 mb-2">
     <header>
       <%- include('../partials/navigation') %>
     </header>
-    <h1><%= title %></h1>
-    <form action="" method="post">
-      <section>
-        <label for="uname">Username</label>
-        <input type="text" name="uname" id="uname" />
-      </section>
-      <section>
-        <label for="pw">Password</label>
-        <input type="password" name="pw" id="pw" />
-      </section>
-      <section>
-        <label for="pwconfirm">Confirm Password</label>
-        <input type="password" name="pwconfirm" id="pwconfirm" />
-      </section>
-      <section>
-        <label for="pwadmin">Admin Password</label>
-        <input type="password" name="pwadmin" id="pwadmin" />
-      </section>
-      <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-    <% if (typeof errors !== "undefined") { %>
-      <ul>
-        <% for (let error of errors) { %>
-          <li><%= error.msg %></li>
-        <% } %>
-      </ul>
-    <% } %>
+    <main>
+      <h1><%= title %></h1>
+      <form action="" method="post">
+        <section class="mb-3">
+          <label for="uname" class="form-label">Username</label>
+          <input
+            type="text"
+            name="uname"
+            id="uname"
+            class="form-control"
+            placeholder="name@example.com"
+          />
+        </section>
+        <section class="mb-3">
+          <label for="pw" class="form-label">Password</label>
+          <input
+            type="password"
+            name="pw"
+            id="pw"
+            class="form-control"
+          />
+        </section>
+        <section class="mb-3">
+          <label for="pwconfirm" class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            name="pwconfirm"
+            id="pwconfirm"
+            class="form-control"
+          />
+        </section>
+        <section class="mb-3">
+          <label for="pwadmin" class="form-label">Admin Password</label>
+          <input
+            type="password"
+            name="pwadmin"
+            id="pwadmin"
+            class="form-control"
+          />
+        </section>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <% if (typeof errors !== "undefined") { %>
+        <ul>
+          <% for (let error of errors) { %>
+            <li><%= error.msg %></li>
+          <% } %>
+        </ul>
+      <% } %>
+    </main>
   </body>
 </html>

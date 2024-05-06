@@ -4,24 +4,26 @@
     <%- include('../partials/head') %>
     <title><%= title %></title>
   </head>
-  <body>
+  <body class="container mt-2 mb-2">
     <header>
       <%- include('../partials/navigation') %>
     </header>
-    <h1><%= title %></h1>
-    <form action="" method="post">
-      <section>
-        <label for="pwmember">Password</label>
-        <input type="password" name="pwmember" id="pwmember" />
-      </section>
-      <button type="submit">Register</button>
-    </form>
-    <% if (typeof errors !== "undefined") { %>
-      <ul>
-        <% for (let error of errors) { %>
-          <li><%= error.msg %></li>
-        <% } %>
-      </ul>
-    <% } %>
+    <main>
+      <h1><%= title %></h1>
+      <form action="" method="post">
+        <section class="mb-3">
+          <label for="pwmember" class="form-label">Password</label>
+          <input type="password" name="pwmember" id="pwmember" class="form-control"/>
+        </section>
+        <button type="submit" class="btn btn-primary">Join</button>
+      </form>
+      <% if (typeof errors !== "undefined") { %>
+        <ul>
+          <% for (let error of errors) { %>
+            <li><%= error.msg %></li>
+          <% } %>
+        </ul>
+      <% } %>
+    </main>
   </body>
 </html>
