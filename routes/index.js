@@ -6,7 +6,8 @@ const connection = require('../config/database');
 const User = require('../models/user');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
+  console.log(req.session);
   res.render('index', { title: 'Express' });
 });
 
