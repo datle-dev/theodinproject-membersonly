@@ -10,7 +10,28 @@
     </header>
     <main>
       <h1><%= title %></h1>
-      <p>Welcome to <%= title %></p>
+      <% if (typeof user !== "undefined") { %>
+        <% if (user.member) { %>
+          <p>Welcome, <%= user.username %>!</p>
+          <p>You're a user and a member!</p>
+          <p><a href="/create-post">Create a post</a> or see what others have posted.</p>
+        <% } else { %>
+          <p>Welcome, <%= user.username %>!</p>
+          <p>You're a user!</p>
+          <p><a href="/create-post">Create a post</a> or see what others have posted.</p>
+          <p>You're not a member yet!</p>
+          <p>
+            Become a <a href="/membership">member</a>
+            (if you know the password, teehee!) to see usernames and dates.
+          </p>
+        <% } %>
+      <% } else { %>
+        <p>Welcome to Members Only!</p>
+        <p>
+          To create posts, <a href="/register">register</a> for an account
+          or <a href="/login">login</a> if you already have one!
+        </p>
+      <% } %>
       <div class="d-flex flex-column gap-2">
         <% for (let post of posts) { %>
           <article class="border p-2 rounded">
