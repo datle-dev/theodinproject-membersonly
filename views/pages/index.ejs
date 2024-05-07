@@ -61,15 +61,7 @@
               <% } %>
             </section>
             <section>
-              <% if (typeof user !== "undefined") { %>
-                <% if (user.member) { %>
-                  <p class="fw-bold mb-1"><%= post.title %></p>
-                <% } else { %>
-                  <p class="fw-bold mb-1">*****</p>
-                <% } %>
-              <% } else { %>
-                <p class="fw-bold mb-1">*****</p>
-              <% } %>
+              <p class="fw-bold mb-1"><%= post.title %></p>
             </section>
             <section>
               <p class="text-body mb-1"><%= post.text %></p>
