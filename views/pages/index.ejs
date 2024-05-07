@@ -15,8 +15,18 @@
         <% for (let post of posts) { %>
           <article class="border p-2 rounded">
             <section class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
-              <p class="text-primary fw-bold mb-1"><%= post.username %></p>
-              <p class="text-secondary mb-1"><%= post.dateFormatted %></p>
+              <% if (typeof user !== "undefined") { %>
+                <% if (user.member) { %>
+                  <p class="text-primary fw-bold mb-1"><%= post.username %></p>
+                  <p class="text-secondary mb-1"><%= post.dateFormatted %></p>
+                <% } else { %>
+                  <p class="text-primary fw-bold mb-1">*****</p>
+                  <p class="text-secondary mb-1">**/**/**** **** **</p>
+                <% } %>
+              <% } else { %>
+                <p class="text-primary fw-bold mb-1">*****</p>
+                <p class="text-secondary mb-1">**/**/**** **** **</p>
+              <% } %>
             </section>
             <section>
               <p class="text-body mb-1"><%= post.text %></p>
