@@ -34,38 +34,47 @@
       <% } %>
       <div class="d-flex flex-column gap-2">
         <% for (let post of posts) { %>
-          <article class="border p-2 rounded">
-            <section class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
-              <% if (typeof user !== "undefined") { %>
-                <% if (user.member) { %>
-                  <p class="text-primary fw-bold mb-1"><%= post.firstname %> <%= post.lastname %></p>
-                  <p class="text-primary fw-bold mb-1">(<%= post.username %>)</p>
+          <article class="d-flex justify-content-between border p-2 rounded">
+            <div>
+              <section class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
+                <% if (typeof user !== "undefined") { %>
+                  <% if (user.member) { %>
+                    <p class="text-primary fw-bold mb-1"><%= post.firstname %> <%= post.lastname %></p>
+                    <p class="text-primary fw-bold mb-1">(<%= post.username %>)</p>
+                  <% } else { %>
+                    <p class="text-primary fw-bold mb-1">***** *****</p>
+                    <p class="text-primary fw-bold mb-1">(*****)</p>
+                  <% } %>
                 <% } else { %>
                   <p class="text-primary fw-bold mb-1">***** *****</p>
                   <p class="text-primary fw-bold mb-1">(*****)</p>
                 <% } %>
-              <% } else { %>
-                <p class="text-primary fw-bold mb-1">***** *****</p>
-                <p class="text-primary fw-bold mb-1">(*****)</p>
-              <% } %>
-            </section>
-            <section>
-              <% if (typeof user !== "undefined") { %>
-                <% if (user.member) { %>
-                  <p class="text-secondary mb-1"><%= post.dateFormatted %></p>
+              </section>
+              <section>
+                <% if (typeof user !== "undefined") { %>
+                  <% if (user.member) { %>
+                    <p class="text-secondary mb-1"><%= post.dateFormatted %></p>
+                  <% } else { %>
+                    <p class="text-secondary mb-1">**/**/**** **** **</p>
+                  <% } %>
                 <% } else { %>
                   <p class="text-secondary mb-1">**/**/**** **** **</p>
                 <% } %>
-              <% } else { %>
-                <p class="text-secondary mb-1">**/**/**** **** **</p>
+              </section>
+              <section>
+                <p class="fw-bold mb-1"><%= post.title %></p>
+              </section>
+              <section>
+                <p class="text-body mb-1"><%= post.text %></p>
+              </section>
+            </div>
+            <div>
+              <% if (typeof user !== "undefined") { %>
+                <% if (user.admin) { %>
+                  <button type="button" class="btn-close justify-self-end flex-fill" aria-label="Close"></button>
+                <% } %>
               <% } %>
-            </section>
-            <section>
-              <p class="fw-bold mb-1"><%= post.title %></p>
-            </section>
-            <section>
-              <p class="text-body mb-1"><%= post.text %></p>
-            </section>
+            </div>
           </article>
         <% } %>
       </div>
