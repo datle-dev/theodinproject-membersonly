@@ -151,7 +151,7 @@ router.post('/create-post', asyncHandler(async (req, res, next) => {
       console.log(postText);
     });
 
-  res.redirect('/protected-route');
+  res.redirect('/');
 
 }));
 
