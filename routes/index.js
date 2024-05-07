@@ -15,7 +15,7 @@ require('dotenv').config();
 router.get('/', asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find().sort({ added: -1 }).exec();
   res.render("pages/index", {
-    title: "Express",
+    title: "Members Only!",
     posts: allPosts,
     user: req.user,
   });
