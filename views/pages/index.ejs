@@ -71,7 +71,14 @@
             <div>
               <% if (typeof user !== "undefined") { %>
                 <% if (user.admin) { %>
-                  <button type="button" class="btn-close justify-self-end flex-fill" aria-label="Close"></button>
+                  <div class="justify-self-end flex-fill">
+                    <form action=<%= "/delete/" + post._id %> method="post">
+                      <button
+                        type="submit"
+                        class="btn-close"
+                      ></button>
+                    </form>
+                  </div>
                 <% } %>
               <% } %>
             </div>

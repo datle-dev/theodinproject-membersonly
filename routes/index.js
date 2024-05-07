@@ -21,6 +21,14 @@ router.get('/', asyncHandler(async (req, res, next) => {
   });
 }));
 
+router.post(
+  '/delete/:postId',
+  asyncHandler(async (req, res, next) => {
+    await Post.findByIdAndDelete(req.params.postId).exec();
+    res.redirect('/');
+  }),
+);
+
 router.get('/login', asyncHandler(async (req, res, next) => {
   res.render('pages/login', { title: 'Sign In' });
 }));
