@@ -110,17 +110,32 @@ router.get('/logout', asyncHandler(async (req, res, next) => {
   });
 }));
 
-router.get('/protected-route', isAuth, asyncHandler(async (req, res, next) => {
-  res.render('pages/protected-route', { title: 'Protected Route' });
-}));
+router.get(
+  "/protected-route",
+  isAuth,
+  asyncHandler(async (req, res, next) => {
+    res.render("pages/protected-route", { title: "Protected Route" });
+  })
+);
 
-router.get('/admin-route', isAdmin, asyncHandler(async (req, res, next) => {
-  res.render('pages/admin-route', { title: 'Admin Route' });
-}));
+router.get(
+  "/admin-route",
+  isAdmin,
+  asyncHandler(async (req, res, next) => {
+    res.render("pages/admin-route", { title: "Admin Route" });
+  })
+);
 
-router.get('/create-post', isAuth, asyncHandler(async (req, res, next) => {
-  res.render('pages/create-post', { title: 'Create Post', user: res.locals.currentUser.username });
-}));
+router.get(
+  "/create-post",
+  isAuth,
+  asyncHandler(async (req, res, next) => {
+    res.render("pages/create-post", {
+      title: "Create Post",
+      user: res.locals.currentUser.username,
+    });
+  })
+);
 
 router.post('/create-post', asyncHandler(async (req, res, next) => {
   const newPost = new Post({
