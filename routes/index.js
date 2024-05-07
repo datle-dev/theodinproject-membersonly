@@ -14,7 +14,11 @@ require('dotenv').config();
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find().sort({ added: -1 }).exec();
-  res.render('pages/index', { title: 'Express', posts: allPosts });
+  res.render("pages/index", {
+    title: "Express",
+    posts: allPosts,
+    user: req.user,
+  });
 }));
 
 router.get('/login', asyncHandler(async (req, res, next) => {
@@ -139,5 +143,42 @@ router.post('/create-post', asyncHandler(async (req, res, next) => {
 router.get('/membership', asyncHandler((req, res, next) => {
   res.render('pages/membership', { title: 'Membership'});
 }));
+
+router.post('/membership', [
+  body('pwmember')
+    .exists()
+    .withMessage('You must enter the password for membership.'),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (req.body.pwmember !== process.env.MEMBER_PASSWORD) {
+      console.log('wrong password');
+      res.redirect('/');
+      return;
+    }
+
+    const user = new User({
+      username: req.user.username,
+      hash: req.user.hash,
+      salt: req.user.salt,
+      admin: req.user.admin,
+      member: true,
+      _id: req.user._id,
+    });
+
+    console.log(`updated user: ${user}`);
+
+    if (!errors.isEmpty()) {
+      res.render('pages/membership', {
+        title: 'Membership',
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await User.findByIdAndUpdate(req.user._id, user, {})
+      res.redirect('/');
+    }
+  }),
+])
 
 module.exports = router;
