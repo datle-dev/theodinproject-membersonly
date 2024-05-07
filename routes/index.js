@@ -38,6 +38,22 @@ router.post(
 );
 
 router.post('/register', [
+  body('firstname')
+    .exists()
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('You must input a first name with at least 1 character.')
+    .isAlphanumeric()
+    .withMessage('First name must only have alphanumeric characters.'),
+  body('lastname')
+    .exists()
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('You must input a last name with at least 1 character.')
+    .isAlphanumeric()
+    .withMessage('Last name must only have alphanumeric characters.'),
   body('uname')
     .exists()
     .withMessage('You must input a username.')
@@ -69,6 +85,8 @@ router.post('/register', [
     const hash = saltHash.hash;
 
     const newUser = new User({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.uname,
       hash: hash,
       salt: salt,
@@ -139,7 +157,10 @@ router.get(
 
 router.post('/create-post', asyncHandler(async (req, res, next) => {
   const newPost = new Post({
+    firstname: res.locals.currentUser.firstname,
+    lastname: res.locals.currentUser.lastname,
     username: res.locals.currentUser.username,
+    title: req.body.title,
     text: req.body.posttext,
     added: new Date(),
   });
@@ -173,6 +194,8 @@ router.post('/membership', [
     }
 
     const user = new User({
+      firstname: req.user.firstname,
+      lastname: req.user.lastname,
       username: req.user.username,
       hash: req.user.hash,
       salt: req.user.salt,
